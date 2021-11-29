@@ -1,0 +1,1 @@
+Ardyn(CMB,1,1);Bahamut(NPB,2,2);Gilgamesh(NTB,1,3);Necron(CMB,1,4);Ultimecia(NTB,1,5)
