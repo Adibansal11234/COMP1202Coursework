@@ -64,7 +64,8 @@ public class EcsBuildingDefence
                     building.bugsMove();
                     //System.out.println(building.getAllBugs());
                     team.allStudentsDefence();
-                    //System.out.println(building.getBug(1));
+                    //
+                    System.out.println(building.getBug(1));
 
 
                 }
