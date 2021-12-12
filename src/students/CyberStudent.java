@@ -7,9 +7,9 @@ public class CyberStudent extends AllStudents
     int baseDelay = 8;
     Toolbox toolbox = new Toolbox();
 
-    public CyberStudent(int level,Building building)
+    public CyberStudent(int level)
     {
-        super(level, 7, building);
+        super(level, 7, "Cyber Student");
     }
     @Override
     public int defence(Building building)
@@ -44,12 +44,15 @@ public class CyberStudent extends AllStudents
         else
         {
           building.getLastBug().damage(normalAttack());
-          if(building.getLastBug().getCurrentHp()<1)
+            System.out.println("Level "  + level  + " " + type + " attacks " + building.getLastBug().getName() + " for " + normalAttack() + " damage leaving him on " + building.getLastBug().getCurrentHp() + " HP!\n");
+
+            if(building.getLastBug().getCurrentHp()<1)
           {
             knowledgePoints = knowledgePoints + ((building.getLastBug().getLevel())*20);
+            System.out.println(building.getLastBug().getName() + " has been killed by Level " + level + " " + type) ;
+            System.out.println("The " + type + " has gained " + (((building.getLastBug().getLevel()) * 20)) + " knowledge points for the team!\n");
             building.removeBug(building.getLastBug());
-            System.out.println("Bug is dead");
-            System.out.println("Knowledge points: " + knowledgePoints);
+
           }
         }
 

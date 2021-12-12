@@ -6,9 +6,9 @@ import building.Building;
 public class AiStudent extends AllStudents
 {
     int baseDelay = 7;
-    public AiStudent(int level, Building building)
+    public AiStudent(int level)
     {
-        super(level, 7, building);
+        super(level, 7, "AI Student");
     }
     @Override
     public int defence(Building building)
@@ -35,11 +35,15 @@ public class AiStudent extends AllStudents
       else
       {
         building.getLastBug().damage(normalAttack());
-        if(building.getLastBug().getCurrentHp()<1)
+          System.out.println("Level "  + level  + " " + type + " attacks " + building.getLastBug().getName() + " for " + normalAttack() + " damage leaving him on " + building.getLastBug().getCurrentHp() + " HP!\n");
+
+          if(building.getLastBug().getCurrentHp()<1)
         {
           knowledgePoints = knowledgePoints + ((building.getLastBug().getLevel())*20);
+          System.out.println(building.getLastBug().getName() + " has been killed by Level " + level + " " + type) ;
+          System.out.println("The " + type + " has gained " + (((building.getLastBug().getLevel()) * 20)) + " knowledge points for the team!\n");
           building.removeBug(building.getLastBug());
-          System.out.println("Bug is dead");
+
 
         }
       }

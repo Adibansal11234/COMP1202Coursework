@@ -1,7 +1,10 @@
 package students;
 
+import bugs.Bug;
 import building.Building;
 import java.util.ArrayList;
+import java.util.Collections;
+
 import utils.Toolbox;
 
 public class Team
@@ -11,6 +14,7 @@ public class Team
     ArrayList<AllStudents> students = new ArrayList<AllStudents>();
     Toolbox toolbox = new Toolbox();
     Building building = null;
+    int maxLevel = 0;
     public Team(int teamKnowledgePoints, Building building)
     {
         this.teamKnowledgePoints = teamKnowledgePoints;
@@ -32,37 +36,43 @@ public class Team
         {
             student.defence(building);
             teamKnowledgePoints = teamKnowledgePoints + student.knowledgePoints;
+
         }
     }
     public int getNewStudentCost()
     {
         return newStudentCost;
     }
+
     public void recruitNewStudent()
     {
         try {
             int probability = toolbox.getRandomInteger(100);
             if (probability <= 25 && teamKnowledgePoints > getNewStudentCost()) {
-                CyberStudent cyberStudent = new CyberStudent(1, building);
+                CyberStudent cyberStudent = new CyberStudent(1);
+                cyberStudent.setBuilding(building);
                 students.add(cyberStudent);
                 teamKnowledgePoints = teamKnowledgePoints - getNewStudentCost();
                 newStudentCost = newStudentCost + 10;
             } else if (probability > 25 && probability <= 50
                 && teamKnowledgePoints > getNewStudentCost()) {
-                CsStudent csStudent = new CsStudent(1, building);
+                CsStudent csStudent = new CsStudent(1);
+                csStudent.setBuilding(building);
                 students.add(csStudent);
                 teamKnowledgePoints = teamKnowledgePoints - getNewStudentCost();
                 newStudentCost = newStudentCost + 10;
             } else if (probability > 50 && probability <= 75
                 && teamKnowledgePoints > getNewStudentCost()) {
-                AiStudent aiStudent = new AiStudent(1, building);
+                AiStudent aiStudent = new AiStudent(1);
+                aiStudent.setBuilding(building);
                 students.add(aiStudent);
                 teamKnowledgePoints = teamKnowledgePoints - getNewStudentCost();
                 newStudentCost = newStudentCost + 10;
             } else if (probability > 75 && probability <= 100
                 && teamKnowledgePoints > getNewStudentCost()) {
                 {
-                    SeStudent seStudent = new SeStudent(1, building);
+                    SeStudent seStudent = new SeStudent(1);
+                    seStudent.setBuilding(building);
                     students.add(seStudent);
                     teamKnowledgePoints = teamKnowledgePoints - getNewStudentCost();
                     newStudentCost = newStudentCost + 10;
@@ -81,15 +91,15 @@ public class Team
     {
         try
         {
-            if(teamKnowledgePoints > 50)
-            {
-
                 int randomNumber = toolbox.getRandomInteger(students.size());
 
                 Student student = students.get(randomNumber-1);
-                student.increaseLevel();
-                teamKnowledgePoints = teamKnowledgePoints - 50;
-            }
+                if(getTeamKnowledgePoints() > students.get(randomNumber-1).upgradeCost()) {
+                    student.increaseLevel();
+                    teamKnowledgePoints = teamKnowledgePoints - students.get(randomNumber-1).upgradeCost();
+                    System.out.println("ALERT! " + students.get(randomNumber-1).getType() + " was successfully upgraded to level " + students.get(randomNumber-1).getLevel() + " for " + students.get(randomNumber-1).upgradeCost() + " knowledge points!");
+                    System.out.println("Current Team Knowledge Points: " + getTeamKnowledgePoints());
+                }
         }
         catch(Exception e)
         {
@@ -100,6 +110,7 @@ public class Team
     {
         return students;
     }
+
     public void printStudents()
     {
         for(AllStudents student : students)
@@ -107,14 +118,49 @@ public class Team
             System.out.println(student);
         }
     }
+
+    public Student getLastStudent()
+    {
+        try {
+            return students.get(students.size()-1);
+        }
+        catch (Exception e)
+        {
+            System.out.println("No students");
+            return null;
+        }
+    }
+
+    public void newStudentAnnouncement()
+    {
+        System.out.println("A new " + getLastStudent().getType() + " was recruited for " + (newStudentCost-10) + " knowledge points!");
+        System.out.println("Students Alive: " + students.size());
+        System.out.println("Current Team Knowledge Points: " + getTeamKnowledgePoints() + "\n");
+    }
+    public void studentUpgradeAnnouncement()
+    {
+
+    }
     public void allStudentsDefence()
     {
         for(AllStudents student : students)
         {
-            System.out.println("Defence");
             student.defence(student.building);
-            //student.getBuilding().getBug(1).damage(5);
         }
+    }
+
+    public int getMaxStudentLevel()
+    {
+        for(AllStudents student : students)
+        {
+            int tempLevel = student.getLevel();
+            if (tempLevel > maxLevel){
+                maxLevel = tempLevel;
+            }
+        }
+        return maxLevel;
+
+
     }
 
 

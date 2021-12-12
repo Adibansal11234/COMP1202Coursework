@@ -57,7 +57,6 @@ public class Bug implements Comparable {
   }
 
   public void damage(int amount) {
-    System.out.println("doing damage for " + this.name + " " + amount);
     if (currentHp > amount) {
       currentHp = currentHp - amount;
 

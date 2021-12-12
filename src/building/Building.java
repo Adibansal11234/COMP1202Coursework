@@ -39,7 +39,7 @@ public class Building
             }
         }
         Collections.sort(bugs);
-        System.out.println(bugs);
+        //System.out.println(bugs);
         return (Bug[])bugsInBuilding.toArray(new Bug[0]);
     }
 
@@ -67,16 +67,13 @@ public class Building
         Bug bugToRemove = null;
         try {
             for (Bug bug : bugs) {
-                //System.out.println(constructionPoints);
-
                 bug.move();
                 if (bug.getCurrentFloor() == getTopFloor()) {
                     constructionPoints = constructionPoints - (bug.getBaseDamage());
                     bugToRemove = bug;
-                    System.out.println("hello");
-
+                    System.out.println(bug.getName() + " Reached the top floor, doing " + bug.getBaseDamage() + " damage!");
+                    System.out.println("Building Construction Points Remaining: " + constructionPoints);
                 }
-                //System.out.println(constructionPoints);
                 if (constructionPoints == 0) {
                     break;
                 }
@@ -86,20 +83,30 @@ public class Building
             } finally {
                 if(bugToRemove != null) {
                     bugs.remove(bugToRemove);
-
                 }
             }
         }
 
     public Bug getLastBug()
     {
-        //System.out.println(bugs.size());
-        return bugs.get(0);
+        try {
+            return bugs.get(0);
+        }
+        catch (Exception e)
+        {
+            System.out.println("All bugs are dead!");
+            return null;
+        }
     }
     public Bug getBug(int size)
     {
-        //System.out.println(bugs.size());
-        return bugs.get(size-1);
+        try {
+            return bugs.get(size - 1);
+        }
+        catch (Exception e){
+            System.out.println(e);
+            return null;
+        }
     }
 
 

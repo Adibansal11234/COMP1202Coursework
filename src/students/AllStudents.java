@@ -9,13 +9,17 @@ public class AllStudents implements Student
     int baseAttack;
     int knowledgePoints;
     int counter = 1;
+    String type;
     Building building = null;
-    public AllStudents(int level, int baseAttack, Building building)
+    public AllStudents(int level, int baseAttack, String type)
     {
         this.level = level;
         this.baseAttack = baseAttack;
-        this.building = building;
+        this.type = type;
+
     }
+
+
 
     public Building getBuilding() {
         return building;
@@ -27,10 +31,14 @@ public class AllStudents implements Student
         return level;
     }
 
+    public String getType() {
+        return type;
+    }
+
     @Override
     public int upgradeCost()
     {
-        return (int)(100 * Math.pow(2, level));
+        return (int)(100 * Math.pow(2, level-1));
     }
 
 
@@ -50,9 +58,15 @@ public class AllStudents implements Student
     }
     public String toString()
     {
-        return "Type: " + this.getClass() + " Knowledge Points: " + this.knowledgePoints + " Level: " + this.level + "\n";
+        return "Type: " + this.getType() + " Knowledge Points: " + this.knowledgePoints + " Level: " + this.level + "\n";
 
     }
+    public void setBuilding(Building building)
+    {
+        this.building = building;
+    }
+
+
 
 
 }

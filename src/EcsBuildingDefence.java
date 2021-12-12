@@ -1,9 +1,14 @@
+import bugs.Bug;
 import bugs.ConcurrentModificationBug;
 import bugs.NoneTerminationBug;
 import bugs.NullPointerBug;
 import building.Building;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.nio.Buffer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -13,80 +18,57 @@ public class EcsBuildingDefence
 {
     public static void main (String[] args)
     {
+        int bugWave = 0;
         int topFloor = Integer.parseInt(args[0]);
+        BufferedReader bufferedReader;
         int constructionPoints = Integer.parseInt(args[1]);
         Building building = new Building(topFloor, constructionPoints);
+        Building tempBuilding = new Building(topFloor, constructionPoints);
+        ArrayList<Bug> waves;
+
         String fileName = args[2];
         int teamKnowledgePoints =  Integer.parseInt(args[3]);
         Team team = new Team(teamKnowledgePoints, building);
+        Battle battle = new Battle(team, building, fileName);
+        //waves = battle.getWaves();
 
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
+        }
+        catch (Exception e )
+        {
+            System.out.println(e);
+        }
+        System.out.println("\n=======================================");
+        System.out.println("        BATTLE IS COMMENCING!");
+        System.out.println("=======================================\n");
+        battle.pause(3500);
+        try {
+            for (int i = 0; i < 1; i++) {
+                System.out.println("WAVE " + (battle.getCounter()+1) + " OF BUGS ARE ABOUT TO ATTACK THE BUILDING!\n");
 
-        try{
-        BufferedReader br = new BufferedReader(new FileReader(fileName));
-
-                String line;
-                while ((line = br.readLine()) != null) {
-                    // process the line.
-
-                    List<String> myList = (getTokens(line, ";"));
-                    for(String token : myList)
-                    {
-                        //System.out.println(token);
-                        String[] splittedLine = token.split("\\(");
-                        String[] splittedLine2 = splittedLine[1].split("\\)");
-                        String bugName = splittedLine[0];
-                        List<String> splittedLine3 = (getTokens(splittedLine2[0], ","));
-                        String bugType = splittedLine3.get(0);
-                        int level = Integer.parseInt(splittedLine3.get(1));
-                        int steps = Integer.parseInt(splittedLine3.get(2));
-                        //System.out.println("Name: " + bugName + "  Type: " + bugType + "  Level: " + level + "  Steps: " + steps);
-
-                        if(bugType.equals("CMB"))
-                        {
-                            ConcurrentModificationBug bug = new ConcurrentModificationBug(bugName,level,steps);
-                            building.addBug(bug);
-                        }
-                        else if(bugType.equals("NTB"))
-                        {
-                            NoneTerminationBug bug = new NoneTerminationBug(bugName,level,steps);
-                            building.addBug(bug);
-                        }
-                        else if(bugType.equals("NPB"))
-                        {
-                            NullPointerBug bug = new NullPointerBug(bugName,level,steps);
-                            building.addBug(bug);
-                        }
-                    }
-                    team.recruitNewStudent();
-                    System.out.println(teamKnowledgePoints);
-                    System.out.println(team.getStudents());
-                    building.bugsMove();
-                    building.bugsMove();
-                    //System.out.println(building.getAllBugs());
-                    team.allStudentsDefence();
-                    //
-                    System.out.println(building.getBug(1));
+                battle.addWave();
+                battle.pause(3500);
+                battle.step();
+                battle.step();
+                battle.step();
+                battle.step();
+                for (int e = 0; e < (4); e++) {
 
 
                 }
 
-
-
-        }
-            catch (Exception e){
-                e.printStackTrace();
-                System.out.println("Error!");
             }
 
-
-    }
-    public static List<String> getTokens(String str, String param) {
-        List<String> tokens = new ArrayList<>();
-        StringTokenizer tokenizer = new StringTokenizer(str, param);
-        while (tokenizer.hasMoreElements()) {
-            tokens.add(tokenizer.nextToken());
         }
-        return tokens;
+        catch(Exception e){
+            System.out.println("h");
+        }
+
+
+
+
+        //System.out.println(building.getAllBugs());
     }
 
 }
