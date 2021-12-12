@@ -45,24 +45,28 @@ public class EcsBuildingDefence
         battle.pause(3500);
         try {
             for (int i = 0; i < 4; i++) {
-                System.out.println("WAVE " + (battle.getCounter()+1) + " OF BUGS ARE ABOUT TO ATTACK THE BUILDING!\n");
+                System.out.println("WAVE " + (battle.getCounter() + 1) + " OF BUGS ARE ABOUT TO ATTACK THE BUILDING!\n");
 
                 battle.addWave();
                 battle.pause(3500);
                 for (int e = 0; e < 8 * topFloor; e++) {
                     battle.step();
-                    if(building.getBugSize() == 0) {
+                    if (building.getBugSize() == 0) {
                         break;
                     }
-
                 }
-
             }
-
+            if (team.getStudents().size() > 0) {
+                System.out.println("\nTHE STUDENTS HAVE SUCCESSFULLY DEFENDED THE BUILDING! CONGRATULATIONS!");
+            }
+            else {
+                 System.out.println("\nALL STUDENTS HAVE BEEN KILLED! BETTER LUCK NEXT TIME...");
+            }
         }
         catch(Exception e){
             System.out.println("h");
         }
+
 
 
 

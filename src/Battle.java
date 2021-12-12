@@ -115,11 +115,11 @@ public class Battle {
     {
         int randomNumber = toolbox.getRandomInteger(100);
 
-        if(((team.getTeamKnowledgePoints()> team.getNewStudentCost()) && (randomNumber < 20)) || ((team.getStudents().size()==0) && (team.getTeamKnowledgePoints() > team.getNewStudentCost()))) {
+        if(((team.getTeamKnowledgePoints()>= team.getNewStudentCost()) && (randomNumber < 10)) || ((team.getStudents().size()==0) && (team.getTeamKnowledgePoints() >= team.getNewStudentCost()))) {
             team.recruitNewStudent();
             team.newStudentAnnouncement();
         }
-        else if ((team.getTeamKnowledgePoints() > (int)(100 * Math.pow(2, team.getMaxStudentLevel()))) && (randomNumber > 19) && (randomNumber < 75) && (team.getStudents().size()>0)) {
+        else if ((team.getTeamKnowledgePoints() > (int)(100 * Math.pow(2, team.getMaxStudentLevel()))) && (randomNumber > 9) && (randomNumber < 75) && (team.getStudents().size()>0)) {
 
             team.upgrade();
         }
@@ -137,25 +137,26 @@ public class Battle {
 
     public void step()
     {
-
+        building.getAllBugs();
         System.out.println("The students are now managing their team.\n");
         pause(3500);
-
         manageTeam();
         pause(3500);
         building.bugsMove();
-        building.getAllBugs();
-        if(building.getBugSize()==1){
-            System.out.println("1 BUG MOVES FORWARD 1 STEP\n");
+        if(building.getBugSize()>0) {
+            if(building.getBugSize()==1){
+                System.out.println("1 BUG MOVES FORWARD 1 STEP\n");
+            }
+            else{
+                System.out.println("ALL " + building.getBugSize() + " BUGS MOVE FORWARD 1 STEP");
+            }
+
+            System.out.println("The bug closest to the top floor is " + building.getLastBug().getName() + " on floor " + building.getLastBug().getCurrentFloor() + " and has " + building.getLastBug().getCurrentSteps() + " steps to get to the next floor!\n");
+            pause(3500);
+            System.out.println("ALERT! THE STUDENTS ATTACK THE BUGS TO DEFEND THE BUILDING!\n");
+            team.allStudentsDefence();
+            pause(2000);
         }
-        else{
-            System.out.println("ALL " + building.getBugSize() + " BUGS MOVE FORWARD 1 STEP");
-        }
-        System.out.println("The bug closest to the top floor is " + building.getLastBug().getName() + " on floor " + building.getLastBug().getCurrentFloor() + " and has " + building.getLastBug().getCurrentSteps() + " steps to get to the next floor!\n");
-        pause(3500);
-        System.out.println("ALERT! THE STUDENTS ATTACK THE BUGS TO DEFEND THE BUILDING!\n");
-        team.allStudentsDefence();
-        pause(2000);
 
     }
 

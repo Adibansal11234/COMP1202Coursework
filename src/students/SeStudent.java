@@ -13,6 +13,7 @@ public class SeStudent extends AllStudents
     @Override
     public int defence(Building building)
     {
+      knowledgePoints = 0;
       this.building = building;
       if(counter % baseDelay == 0)
       {

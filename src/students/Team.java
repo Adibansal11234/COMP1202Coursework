@@ -49,28 +49,28 @@ public class Team
     {
         try {
             int probability = toolbox.getRandomInteger(100);
-            if (probability <= 25 && teamKnowledgePoints > getNewStudentCost()) {
+            if (probability <= 25 && teamKnowledgePoints >= getNewStudentCost()) {
                 CyberStudent cyberStudent = new CyberStudent(1);
                 cyberStudent.setBuilding(building);
                 students.add(cyberStudent);
                 teamKnowledgePoints = teamKnowledgePoints - getNewStudentCost();
                 newStudentCost = newStudentCost + 10;
             } else if (probability > 25 && probability <= 50
-                && teamKnowledgePoints > getNewStudentCost()) {
+                && teamKnowledgePoints >= getNewStudentCost()) {
                 CsStudent csStudent = new CsStudent(1);
                 csStudent.setBuilding(building);
                 students.add(csStudent);
                 teamKnowledgePoints = teamKnowledgePoints - getNewStudentCost();
                 newStudentCost = newStudentCost + 10;
             } else if (probability > 50 && probability <= 75
-                && teamKnowledgePoints > getNewStudentCost()) {
+                && teamKnowledgePoints >= getNewStudentCost()) {
                 AiStudent aiStudent = new AiStudent(1);
                 aiStudent.setBuilding(building);
                 students.add(aiStudent);
                 teamKnowledgePoints = teamKnowledgePoints - getNewStudentCost();
                 newStudentCost = newStudentCost + 10;
             } else if (probability > 75 && probability <= 100
-                && teamKnowledgePoints > getNewStudentCost()) {
+                && teamKnowledgePoints >= getNewStudentCost()) {
                 {
                     SeStudent seStudent = new SeStudent(1);
                     seStudent.setBuilding(building);
@@ -99,7 +99,7 @@ public class Team
                     student.increaseLevel();
                     teamKnowledgePoints = teamKnowledgePoints - students.get(randomNumber-1).upgradeCost();
                     System.out.println("ALERT! " + students.get(randomNumber-1).getType() + " was successfully upgraded to level " + students.get(randomNumber-1).getLevel() + " for " + students.get(randomNumber-1).upgradeCost() + " knowledge points!");
-                    System.out.println("Current Team Knowledge Points: " + getTeamKnowledgePoints());
+                    System.out.println("Current Team Knowledge Points: " + getTeamKnowledgePoints() + "\n");
                 }
         }
         catch(Exception e)
@@ -146,6 +146,9 @@ public class Team
     {
         for(AllStudents student : students)
         {
+            if(building.getBugSize() == 0){
+                break;
+            }
             teamKnowledgePoints = teamKnowledgePoints + student.defence(student.building);
 
         }

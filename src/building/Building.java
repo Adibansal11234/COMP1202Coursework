@@ -74,8 +74,9 @@ public class Building
                     System.out.println(bug.getName() + " Reached the top floor, doing " + bug.getBaseDamage() + " damage!");
                     System.out.println("Building Construction Points Remaining: " + constructionPoints + "\n");
                 }
-                if (constructionPoints == 0) {
-                    break;
+                if (constructionPoints < 1) {
+                    System.out.println("\nTHE BUILDING HAS BEEN OVERRUN BY THE BUGS. BETTER LUCK NEXT TIME...");
+                    System.exit(0);
                 }
             }
         } catch (Exception e) {
@@ -94,7 +95,7 @@ public class Building
         }
         catch (Exception e)
         {
-            System.out.println(e);
+            System.out.println("get last bug error");
             return null;
         }
     }
@@ -104,7 +105,7 @@ public class Building
             return bugs.get(size - 1);
         }
         catch (Exception e){
-            System.out.println(e);
+            System.out.println("get bug error");
             return null;
         }
     }
