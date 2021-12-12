@@ -20,32 +20,21 @@ public class CsStudent extends AllStudents
       if(counter % baseDelay == 0)
       {
         building.getLastBug().damage((normalAttack()*4));
-        if(building.getLastBug().getCurrentHp()<1)
-        {
-          knowledgePoints = knowledgePoints + ((building.getLastBug().getLevel())*20);
-          building.removeBug(building.getLastBug());
-          System.out.println("Bug is dead");
-
-        }
+        System.out.println("Level "  + level  + " " + type + " PERFORMS SPECIAL ATTACK ON " + building.getLastBug().getName() + " for " + normalAttack()*4 + " damage leaving him on " + building.getLastBug().getCurrentHp() + " HP!\n");
       }
       else
       {
         building.getLastBug().damage(normalAttack());
         System.out.println("Level "  + level  + " " + type + " attacks " + building.getLastBug().getName() + " for " + normalAttack() + " damage leaving him on " + building.getLastBug().getCurrentHp() + " HP!\n");
-
-
-        if(building.getLastBug().getCurrentHp()<1)
-        {
-          knowledgePoints = knowledgePoints + ((building.getLastBug().getLevel())*20);
-          System.out.println(building.getLastBug().getName() + " has been killed by Level " + level + " " + type) ;
-          System.out.println("The " + type + " has gained " + (((building.getLastBug().getLevel()) * 20)) + " knowledge points for the team!\n");
-          building.removeBug(building.getLastBug());
-
-
-        }
       }
+      if(building.getLastBug().getCurrentHp()<1)
+      {
+        knowledgePoints = knowledgePoints + ((building.getLastBug().getLevel())*20);
+        System.out.println(building.getLastBug().getName() + " has been killed by Level " + level + " " + type) ;
+        System.out.println("The " + type + " has gained " + (((building.getLastBug().getLevel()) * 20)) + " knowledge points for the team!\n");
+        building.removeBug(building.getLastBug());
 
-
+      }
       counter++;
       return knowledgePoints;
     }

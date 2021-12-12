@@ -18,19 +18,25 @@ public class AiStudent extends AllStudents
       getBuilding().getAllBugs();
       if(counter % baseDelay == 0)
       {
-        for(int i = 1;i < 4; i++)
+        int tempValue = building.getBugSize();
+        if(tempValue > 3){
+            tempValue = 4;
+        }
+        for(int i = 1;i < tempValue; i++)
         {
           Bug tempBug = building.getBug(i);
           tempBug.damage(normalAttack());
-          System.out.println("SPECIAL ATTACK ON" + tempBug.getName());
-          if(building.getBug(i).getCurrentHp()<1)
+          System.out.println("Level "  + level  + " " + type + " PERFORMS SPECIAL ATTACK ON " + building.getBug(i).getName() + " for " + normalAttack() + " damage leaving him on " + building.getBug(i).getCurrentHp() + " HP!\n");
+            if(building.getBug(i).getCurrentHp()<1)
           {
             knowledgePoints = knowledgePoints + ((building.getBug(i).getLevel())*20);
-            building.removeBug(building.getLastBug());
-            System.out.println("Bug is dead");
+            System.out.println(building.getBug(i).getName() + " has been killed by Level " + level + " " + type) ;
+            System.out.println("The " + type + " has gained " + (((building.getBug(i).getLevel()) * 20)) + " knowledge points for the team!\n");
+            building.removeBug(building.getBug(i));
 
           }
         }
+
       }
       else
       {

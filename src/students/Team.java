@@ -21,6 +21,7 @@ public class Team
         this.building = building;
     }
 
+
     public int getTeamKnowledgePoints()
     {
         return teamKnowledgePoints;
@@ -133,7 +134,7 @@ public class Team
 
     public void newStudentAnnouncement()
     {
-        System.out.println("A new " + getLastStudent().getType() + " was recruited for " + (newStudentCost-10) + " knowledge points!");
+        System.out.println("The team has decided to recruit a new " + getLastStudent().getType() + " for " + (newStudentCost-10) + " knowledge points!");
         System.out.println("Students Alive: " + students.size());
         System.out.println("Current Team Knowledge Points: " + getTeamKnowledgePoints() + "\n");
     }
@@ -145,7 +146,8 @@ public class Team
     {
         for(AllStudents student : students)
         {
-            student.defence(student.building);
+            teamKnowledgePoints = teamKnowledgePoints + student.defence(student.building);
+
         }
     }
 

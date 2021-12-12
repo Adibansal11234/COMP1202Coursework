@@ -14,13 +14,16 @@ public class SeStudent extends AllStudents
     public int defence(Building building)
     {
       this.building = building;
-      System.out.println(counter);
       if(counter % baseDelay == 0)
       {
-         System.out.println("Special ");
-        for (int i = 1; i < 6; i++) {
+        int tempValue = building.getAllBugs().length;
+        if(tempValue>5){
+            tempValue = 6;
+        }
+        for (int i = 1; i < tempValue; i++) {
           building.getBug(i).slowDown(2);
         }
+        System.out.println("Level "  + level  + " " + type + " performs SPECIAL ATTACK on the first " + tempValue + " bugs, slowing them down by 2 steps each\n");
       }
       else
       {

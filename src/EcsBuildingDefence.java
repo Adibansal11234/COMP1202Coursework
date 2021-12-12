@@ -44,17 +44,16 @@ public class EcsBuildingDefence
         System.out.println("=======================================\n");
         battle.pause(3500);
         try {
-            for (int i = 0; i < 1; i++) {
+            for (int i = 0; i < 4; i++) {
                 System.out.println("WAVE " + (battle.getCounter()+1) + " OF BUGS ARE ABOUT TO ATTACK THE BUILDING!\n");
 
                 battle.addWave();
                 battle.pause(3500);
-                battle.step();
-                battle.step();
-                battle.step();
-                battle.step();
-                for (int e = 0; e < (4); e++) {
-
+                for (int e = 0; e < 8 * topFloor; e++) {
+                    battle.step();
+                    if(building.getBugSize() == 0) {
+                        break;
+                    }
 
                 }
 

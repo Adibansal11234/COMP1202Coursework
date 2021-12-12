@@ -72,7 +72,7 @@ public class Building
                     constructionPoints = constructionPoints - (bug.getBaseDamage());
                     bugToRemove = bug;
                     System.out.println(bug.getName() + " Reached the top floor, doing " + bug.getBaseDamage() + " damage!");
-                    System.out.println("Building Construction Points Remaining: " + constructionPoints);
+                    System.out.println("Building Construction Points Remaining: " + constructionPoints + "\n");
                 }
                 if (constructionPoints == 0) {
                     break;
@@ -94,7 +94,7 @@ public class Building
         }
         catch (Exception e)
         {
-            System.out.println("All bugs are dead!");
+            System.out.println(e);
             return null;
         }
     }
@@ -107,6 +107,11 @@ public class Building
             System.out.println(e);
             return null;
         }
+    }
+
+    public int getBugSize()
+    {
+        return bugs.size();
     }
 
 
