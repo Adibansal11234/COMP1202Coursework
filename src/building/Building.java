@@ -1,69 +1,64 @@
 package building;
+
 import bugs.Bug;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Building
-{
+public class Building {
     int constructionPoints;
     int topFloor;
     ArrayList<Bug> bugs = new ArrayList<Bug>();
 
-    public Building (int topFloor, int constructionPoints)
-    {
+    //constructor for building
+    public Building(int topFloor, int constructionPoints) {
         this.topFloor = topFloor;
         this.constructionPoints = constructionPoints;
     }
-    public int getTopFloor()
-    {
+
+    //returns top floor
+    public int getTopFloor() {
         return topFloor;
     }
 
-    public int getConstructionPoints()
-    {
+    //returns construction points
+    public int getConstructionPoints() {
         return constructionPoints;
     }
-    public Bug[] getAllBugs()
-    {
+
+    //method to sort the array of bugs and returns the bugs in the building (those which are on floor 0 or above)
+    public Bug[] getAllBugs() {
         Collections.sort(bugs);
         ArrayList<Bug> bugsInBuilding = new ArrayList<Bug>();
-        for (Bug bug: bugs)
-        {
-            if((bug.getCurrentFloor()>-1)&&bug.getCurrentHp()>0)
-            {
+        for (Bug bug : bugs) {
+            if ((bug.getCurrentFloor() > -1) && bug.getCurrentHp() > 0) {
                 bugsInBuilding.add(bug);
-            }
-            else if(bug.getCurrentHp()<1)
-            {
+            } else if (bug.getCurrentHp() < 1) {
                 bugsInBuilding.remove(bug);
             }
         }
         Collections.sort(bugs);
-        //System.out.println(bugs);
-        return (Bug[])bugsInBuilding.toArray(new Bug[0]);
+        return (Bug[]) bugsInBuilding.toArray(new Bug[0]);
     }
 
-
-    public int addBug(Bug bug)
-    {
-        if(bug.getCurrentFloor()>-1 || bugs.contains(bug))
-        {
+    //method to add bugs to the array, if the bug is already in the building, it returns -1
+    public int addBug(Bug bug) {
+        if (bug.getCurrentFloor() > -1 || bugs.contains(bug)) {
             return -1;
-        }
-        else
-        {
+        } else {
             bugs.add(bug);
             return bugs.size();
         }
     }
 
-    public void removeBug(Bug bug)
-    {
+    //method to remove bug from the building
+    public void removeBug(Bug bug) {
         bugs.remove(bug);
     }
 
-    public void bugsMove()
-    {
+    //method to cycle through the array of bugs and move each one by 1 step,
+    // if a bug reaches the top floor, it damages the building and is removed from the building
+    public void bugsMove() {
         Bug bugToRemove = null;
         try {
             for (Bug bug : bugs) {
@@ -80,38 +75,36 @@ public class Building
                 }
             }
         } catch (Exception e) {
-                System.out.println("something");
-            } finally {
-                if(bugToRemove != null) {
-                    bugs.remove(bugToRemove);
-                }
+            System.out.println("something");
+        } finally {
+            if (bugToRemove != null) {
+                bugs.remove(bugToRemove);
             }
         }
+    }
 
-    public Bug getLastBug()
-    {
+    //method to return the last bug, which is the one closest to the top floor of the building
+    public Bug getLastBug() {
         try {
             return bugs.get(0);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("get last bug error");
             return null;
         }
     }
-    public Bug getBug(int size)
-    {
+
+    //method to return a bug from the array of position of the integer which is passed
+    public Bug getBug(int size) {
         try {
             return bugs.get(size - 1);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println("get bug error");
             return null;
         }
     }
 
-    public int getBugSize()
-    {
+    //method to return the number of bugs in and out of the building
+    public int getBugSize() {
         return bugs.size();
     }
 
